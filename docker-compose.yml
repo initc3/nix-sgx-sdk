@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  nix-sgx-sdk:
+    image: nix-sgx-sdk
+    build:
+      context: .
+    volumes:
+      - ./asldobjdump.nix:/usr/src/asldobjdump.nix
+      - ./shell.nix:/usr/src/shell.nix
