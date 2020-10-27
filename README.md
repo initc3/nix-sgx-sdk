@@ -86,6 +86,11 @@ Succeed.
 SIGN =>  enclave.signed.so
 ```
 
+```shell
+[nix-shell:/usr/src/result/sgxsdk/SampleCode/SampleEnclave]# sha256sum enclave.signed.so
+4328970ec560704b259a301979f0c4963718b0a4e55d313cce070d2589dfdd0b  enclave.signed.so
+```
+
 Compile and run the local attestation sample in simulation mode:
 
 ```shell

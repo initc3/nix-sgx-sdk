@@ -1,4 +1,4 @@
-{ pkgs ? import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/10e61bf5be57736035ec7a804cb0bf3d083bf2cf.tar.gz") {} }:
+{ sources ? import ./nix/sources.nix, pkgs ? import sources.nixpkgs { }}:
 with pkgs;
 
 let
@@ -6,10 +6,9 @@ let
     url = "https://download.01.org/intel-sgx/sgx-linux/2.11/optimized_libs_2.11.tar.gz";
     sha256 = "43ad0859114c1e78a4381a9bd6a03929499c0e1b268cc7f719e9b65e53127162";
   };
-  
-  asldobjdump = fetchurl {
-    url = "https://download.01.org/intel-sgx/sgx-linux/2.11/as.ld.objdump.gold.r2.tar.gz";
-    sha256 = "97f623594960e4b3313cda2496bee2cef18191d86b4f07f89e8eef8eee7135e0";
+
+  asldobjdump = import ./asldobjdump.nix {
+    inherit bison fetchurl flex gettext libbfd libiberty libopcodes stdenv texinfo zlib;
   };
 
 in
@@ -27,11 +26,13 @@ stdenvNoCC.mkDerivation {
   };
   postUnpack = ''
     tar -C $sourceRoot -xvf $ipp_crypto
-    tar -C $sourceRoot -xvf $asldobjdump
-    export BINUTILS_DIR=$PWD/$sourceRoot/external/toolset/nix
     '';
   dontConfigure = true;
+  preBuild = ''
+    export BINUTILS_DIR=$asldobjdump/bin
+  '';
   buildInputs = [
+    asldobjdump
     autoconf
     automake
     libtool

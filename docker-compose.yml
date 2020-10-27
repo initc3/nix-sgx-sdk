@@ -8,3 +8,4 @@ services:
     volumes:
       - ./asldobjdump.nix:/usr/src/asldobjdump.nix
       - ./shell.nix:/usr/src/shell.nix
+      - ./nix:/usr/src/nix
