@@ -10,3 +10,16 @@ services:
       - ./sgxsdk.nix:/usr/src/sgxsdk.nix
       - ./shell.nix:/usr/src/shell.nix
       - ./nix:/usr/src/nix
+  nix-rust-sgx-sdk:
+    image: nix-rust-sgx-sdk
+    build:
+      dockerfile: rust.Dockerfile
+      context: .
+    volumes:
+      - ./asldobjdump.nix:/usr/src/asldobjdump.nix
+      - ./sgxsdk.nix:/usr/src/sgxsdk.nix
+      - ./shell.nix:/usr/src/shell.nix
+      - ./rust-sgx-sdk.nix:/usr/src/rust-sgx-sdk.nix
+      - ./nix:/usr/src/nix
+      - ./keys:/usr/src/keys
+      - ./reproducibility_verifier.sh:/usr/src/reproducibility_verifier.sh
