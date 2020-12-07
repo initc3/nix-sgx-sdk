@@ -54,7 +54,7 @@ SGX SDK enviroment
 
 Build the signed enclave:
 
-```shell
+```
 [nix-shell:/usr/src/result/sgxsdk/SampleCode/SampleEnclave]# make enclave.signed.so
 GEN  =>  Enclave/Enclave_t.h
 CC   <=  Enclave/Enclave_t.c
@@ -86,9 +86,15 @@ Succeed.
 SIGN =>  enclave.signed.so
 ```
 
-```shell
+```
+[nix-shell:/usr/src/result/sgxsdk/SampleCode/SampleEnclave]# sha256sum enclave.so
+00c8533ff8e0be9c03fa58b69deac89b8c54af2e48782957562fd2d866112b86  enclave.so
+
+# NOTE that this is not reproducible as the message signed depends on the date. But
+# if you try it on the same day (UTC) it should be reproducible. Below it's just an
+# an example (2020.12.07).
 [nix-shell:/usr/src/result/sgxsdk/SampleCode/SampleEnclave]# sha256sum enclave.signed.so
-4328970ec560704b259a301979f0c4963718b0a4e55d313cce070d2589dfdd0b  enclave.signed.so
+de2a88e478da28267f077d0631e7f247e08af7966d4c5603e90128ed6915231c  enclave.signed.so
 ```
 
 Compile and run the local attestation sample in simulation mode:
@@ -130,13 +136,18 @@ The project has been built in simulation debug mode.
 
 Run the app:
 
-```shell
+```
 [nix-shell:/usr/src/result/sgxsdk/SampleCode/LocalAttestation]# cd bin/
 [nix-shell:/usr/src/result/sgxsdk/SampleCode/LocalAttestation/bin]# ./app
 succeed to load enclaves.
 succeed to establish secure channel.
 Succeed to exchange secure message...
 Succeed to close Session...
+```
+
+```
+[nix-shell:/usr/src/result/sgxsdk/SampleCode/LocalAttestation/bin]# sha256sum app
+03325cae23ecb64672ad63b17d406ae0039c8d87e26573ed37b8183ba7991a8d  app
 ```
 
 The same commands can be used with the other samples.
