@@ -4,17 +4,19 @@ Experimental nix derivation for Intel's SGX SDK.
 This a work-in-progress.
 
 ## Quick start
-Build the image and work in a container:
+Build the image:
 
 ```shell
 $ docker-compose build
-$ docker-compose run --rm nix-sgx-sdk
 ```
 
-Build and install the SGX SDK (this will take some time):
+Note that this will take some time as this will build the SGX SDK installer
+and install it under `/usr/src/result`.
+
+You should see something similar to at the end of the build:
 
 ```shell
-bash-4.4# nix-build shell.nix
+$ docker-compose build
 
 ...
 
@@ -26,7 +28,13 @@ source /nix/store/rfh0lambk582hmxc9kb9wks7bw1jd4nz-sgx/sgxsdk/environment
 /nix/store/rfh0lambk582hmxc9kb9wks7bw1jd4nz-sgx
 ```
 
-The sdk is also under `/usr/src/result`:
+NOTE that The SDK is also under the more convenient path `/usr/src/result`.
+
+See this for yourself:
+
+```shell
+$ docker-compose run --rm nix-sgx-sdk
+```
 
 ```shell
 bash-4.4# ls result/sgxsdk/
@@ -38,7 +46,7 @@ Source the SGX SDK environment:
 bash-4.4# source result/sgxsdk/environment
 ```
 
-Let's build a signed enclave, for the `SampleEnclave` example:
+Let's build and a sign an enclave, for the `SampleEnclave` example:
 
 ```shell
 bash-4.4# cd result/sgxsdk/SampleCode/SampleEnclave
