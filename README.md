@@ -104,7 +104,20 @@ Check the hash of the `enclave.so` file:
 For the signed enclave, one has to follow steps based on
 [Verify Intel(R) Prebuilt AE Reproducibility](https://github.com/intel/linux-sgx/tree/master/linux/reproducibility/ae_reproducibility_verifier). (See work-in-progress example under
 https://github.com/initc3/nix-sgx-sdk/tree/rust-sgx-sdk#audit-case-comparing-two-signed-enclaves
-for the time being.)
+for the time being.) A brief example, which checks the "private-key-independent" and
+"time-independent" metadata is shown below.
+
+```shell
+# check the "private-key-independent" and "time-independent" metadata aka
+# "partial metadata"
+[nix-shell:/usr/src/result/sgxsdk/SampleCode/SampleEnclave]# $SGX_SDK/bin/x64/sgx_sign dump -enclave enclave.signed.so -dumpfile metadata.txt
+Succeed.
+
+[nix-shell:/usr/src/result/sgxsdk/SampleCode/SampleEnclave]# sed -n '/metadata->magic_num/,/metadata->enclave_css.header.module_vendor/p;/metadata->enclave_css.header.header2/,/metadata->enclave_css.header.hw_version/p;/metadata->enclave_css.body.misc_select/,/metadata->enclave_css.body.isv_svn/p;' metadata.txt > partial_metadata.txt
+
+[nix-shell:/usr/src/result/sgxsdk/SampleCode/SampleEnclave]# sha256sum partial_metadata.txt
+8f349074773701017b3eeb2e1603df88aff02c31fb3ad51b06a7367ab414f310  partial_metadata.txt
+```
 
 ```shell
 # NOTE that this is not reproducible as the message signed depends on the date. But
@@ -114,6 +127,7 @@ for the time being.)
 de2a88e478da28267f077d0631e7f247e08af7966d4c5603e90128ed6915231c  enclave.signed.so
 ```
 
+### Running an app in simulation mode
 Compile and run the local attestation sample in simulation mode:
 
 ```shell
