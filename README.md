@@ -62,7 +62,7 @@ SGX SDK enviroment
 
 Build the signed enclave:
 
-```
+```shell
 [nix-shell:/usr/src/result/sgxsdk/SampleCode/SampleEnclave]# make enclave.signed.so
 GEN  =>  Enclave/Enclave_t.h
 CC   <=  Enclave/Enclave_t.c
@@ -94,10 +94,19 @@ Succeed.
 SIGN =>  enclave.signed.so
 ```
 
-```
+Check the hash of the `enclave.so` file:
+
+```shell
 [nix-shell:/usr/src/result/sgxsdk/SampleCode/SampleEnclave]# sha256sum enclave.so
 00c8533ff8e0be9c03fa58b69deac89b8c54af2e48782957562fd2d866112b86  enclave.so
+```
 
+For the signed enclave, one has to follow steps based on
+[Verify Intel(R) Prebuilt AE Reproducibility](https://github.com/intel/linux-sgx/tree/master/linux/reproducibility/ae_reproducibility_verifier). (See work-in-progress example under
+https://github.com/initc3/nix-sgx-sdk/tree/rust-sgx-sdk#audit-case-comparing-two-signed-enclaves
+for the time being.)
+
+```shell
 # NOTE that this is not reproducible as the message signed depends on the date. But
 # if you try it on the same day (UTC) it should be reproducible. Below it's just an
 # an example (2020.12.07).
@@ -144,7 +153,7 @@ The project has been built in simulation debug mode.
 
 Run the app:
 
-```
+```shell
 [nix-shell:/usr/src/result/sgxsdk/SampleCode/LocalAttestation]# cd bin/
 [nix-shell:/usr/src/result/sgxsdk/SampleCode/LocalAttestation/bin]# ./app
 succeed to load enclaves.
@@ -153,7 +162,7 @@ Succeed to exchange secure message...
 Succeed to close Session...
 ```
 
-```
+```shell
 [nix-shell:/usr/src/result/sgxsdk/SampleCode/LocalAttestation/bin]# sha256sum app
 03325cae23ecb64672ad63b17d406ae0039c8d87e26573ed37b8183ba7991a8d  app
 ```
