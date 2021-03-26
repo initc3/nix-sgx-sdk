@@ -26,32 +26,32 @@ pkgs.stdenv.mkDerivation {
     cd samplecode/helloworld
     '';
   dontConfigure = true;
-  buildInputs = [
+  buildInputs = with pkgs; [
     sgxsdk
     rust
-    pkgs.bashInteractive
-    pkgs.autoconf
-    pkgs.automake
-    pkgs.libtool
-    #pkgs.ocaml
-    #pkgs.ocamlPackages.ocamlbuild
-    pkgs.file
-    #pkgs.cmake
-    #pkgs.gnum4
-    #pkgs.openssl
-    #pkgs.gnumake
+    bashInteractive
+    autoconf
+    automake
+    libtool
+    #ocaml
+    #ocamlPackages.ocamlbuild
+    file
+    #cmake
+    #gnum4
+    #openssl
+    #gnumake
     # FIXME For now, must get glibc from another nixpkgs revision.
     # See https://github.com/intel/linux-sgx/issues/612
     #glibc
     #/nix/store/681354n3k44r8z90m35hm8945vsp95h1-glibc-2.27
-    #pkgs.gcc8
-    #pkgs.texinfo
-    #pkgs.bison
-    #pkgs.flex
-    #pkgs.perl
-    #pkgs.python3
-    pkgs.which
-    #pkgs.git
+    #gcc8
+    #texinfo
+    #bison
+    #flex
+    #perl
+    #python3
+    which
+    #git
   ];
   buildFlags = ["bin/enclave.signed.so"];
   dontInstall = true;

@@ -1,20 +1,24 @@
 version: '3.7'
 
 services:
-  nix-sgx-sdk:
-    image: nix-sgx-sdk
+  sgxsdk:
+    image: nix-sgxsdk:local
     build:
       context: .
+    devices:
+      - /dev/isgx
     volumes:
       - ./asldobjdump.nix:/usr/src/asldobjdump.nix
       - ./sgxsdk.nix:/usr/src/sgxsdk.nix
       - ./shell.nix:/usr/src/shell.nix
       - ./nix:/usr/src/nix
-  nix-rust-sgx-sdk:
+  rust-sgxsdk:
     image: nix-rust-sgx-sdk
     build:
       dockerfile: rust.Dockerfile
       context: .
+    devices:
+      - /dev/isgx
     volumes:
       - ./asldobjdump.nix:/usr/src/asldobjdump.nix
       - ./sgxsdk.nix:/usr/src/sgxsdk.nix
