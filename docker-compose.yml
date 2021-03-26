@@ -8,7 +8,6 @@ services:
     devices:
       - /dev/isgx
     volumes:
-      - ./asldobjdump.nix:/usr/src/asldobjdump.nix
       - ./sgxsdk.nix:/usr/src/sgxsdk.nix
       - ./shell.nix:/usr/src/shell.nix
       - ./nix:/usr/src/nix
