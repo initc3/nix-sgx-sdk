@@ -17,20 +17,18 @@ let
   binutils235 = unstablepkgs.binutils;
 
   # for glibc 2.27
-  pkgs1809 = import (builtins.fetchGit {
-    url = "https://github.com/NixOS/nixpkgs/";
-    name = "nixos-18.09";
-    ref = "refs/heads/nixos-18.09";
-    rev = "fc98b4e129a66d2829ccfa07ead4d569eb88ffa6";
-  }) {};
-  glibc227 = pkgs1809.glibc;
+  #pkgs1809 = import (builtins.fetchGit {
+  #  name = "nixos-18.09";
+  #  url = "https://github.com/NixOS/nixpkgs/";
+  #  ref = "refs/heads/nixos-18.09";
+  #  rev = "fc98b4e129a66d2829ccfa07ead4d569eb88ffa6";
+  #}) {};
+  #glibc227 = pkgs1809.glibc;
 
 in
-stdenvNoCC.mkDerivation {
-#stdenv.mkDerivation {
-  inherit ipp_crypto binutils235 glibc227;
-  #inherit ipp_crypto binutils235;
-  name = "sgxsdk";
+stdenv.mkDerivation {
+  inherit ipp_crypto binutils235;
+  name = "sgx";
   src = fetchFromGitHub {
     owner = "sbellem";
     repo = "linux-sgx";
@@ -58,13 +56,6 @@ stdenvNoCC.mkDerivation {
     cmake
     gnum4
     openssl
-    # FIXME For now, must get glibc from another nixpkgs revision.
-    # See https://github.com/intel/linux-sgx/issues/612
-    glibc227
-    #glibc
-    #gcc
-    gcc8
-    gnumake
     texinfo
     bison
     flex
@@ -77,7 +68,6 @@ stdenvNoCC.mkDerivation {
     # TODO is this needed?
     protobuf
   ];
-  #propagatedBuildInputs = [ gcc8 ];
   buildFlags = ["sdk_install_pkg"];
   dontInstall = true;
   postBuild = ''

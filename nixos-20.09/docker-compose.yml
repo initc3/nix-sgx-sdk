@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  sgxsdk:
+    image: nix-sgxsdk:nixos-20.09
+    build:
+      context: .
+    devices:
+      - /dev/isgx
+    volumes:
+      - ./sgxsdk.nix:/usr/src/sgxsdk.nix
+      - ./shell.nix:/usr/src/shell.nix
+      - ./nix:/usr/src/nix

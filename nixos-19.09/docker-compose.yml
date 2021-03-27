@@ -1,4 +1,4 @@
-version: '3.9'
+version: '3.7'
 
 services:
   sgxsdk:
@@ -11,7 +11,6 @@ services:
       - ./sgxsdk.nix:/usr/src/sgxsdk.nix
       - ./shell.nix:/usr/src/shell.nix
       - ./nix:/usr/src/nix
-      - ./SampleCode:/tmp/app
   rust-sgxsdk:
     image: nix-rust-sgx-sdk
     build:
