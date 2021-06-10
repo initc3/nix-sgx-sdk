@@ -3,8 +3,8 @@ with pkgs;
 
 let
   ipp_crypto = fetchurl {
-    url ="https://download.01.org/intel-sgx/sgx-linux/2.13/optimized_libs_2.13.tar.gz";
-    sha256 = "a24fd428147afffb86030c34743e8cb9532f7d4847e44e85fd9e43031d4f0359";
+    url = "https://download.01.org/intel-sgx/sgx-linux/2.13.3/optimized_libs_2.13.3.tar.gz";
+    sha256 = "f46aceac799e546e5c01e484d7f7c01b34c1e1d79469600f86da2bd5b3ce7ad4";
   };
 
   # for binutils 2.35.1
@@ -34,10 +34,10 @@ stdenvNoCC.mkDerivation {
   src = fetchFromGitHub {
     owner = "sbellem";
     repo = "linux-sgx";
-    rev = "5cec833b7e7db0181b90fbf5403315fb0ce75f3e";
+    rev = "6e1436a4dd3236a07f1c6cfba7b2eade1b82a1a3";
     # Command to get the sha256 hash (note the --fetch-submodules arg):
-    # nix run -f '<nixpkgs>' nix-prefetch-github -c nix-prefetch-github --fetch-submodules --rev 6b5ba77dbba16d30cf9db21d92ff5d87d155c4b7 sbellem linux-sgx
-    sha256 = "1jr7c7f26s3hdn2znqydh08jdzl62q6wga76xp83f1fi8pik4lxk";
+    # nix run -f '<nixpkgs>' nix-prefetch-github -c nix-prefetch-github --fetch-submodules --rev 6e1436a4dd3236a07f1c6cfba7b2eade1b82a1a3 sbellem linux-sgx
+    sha256 = "0sr6109d589vq5xc7pig5752i9yk5dnlsr1ivj24y8l2vxr7gv6w";
     fetchSubmodules = true;
   };
   postUnpack = ''
