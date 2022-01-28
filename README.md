@@ -197,13 +197,13 @@ improvements should make it simpler.*
 First build the image:
 
 ```shell
-$ docker-compose build nix-rust-sgx-sdk
+docker-compose build nix-rust-sgx-sdk
 ```
 
 Launch a container:
 
 ```shell
-$ docker-compose run --rm nix-rust-sgx-sdk
+docker-compose run --rm nix-rust-sgx-sdk
 ```
 
 Once in the container, start a `nix-shell` session:
@@ -355,13 +355,13 @@ material.
 First build the image:
 
 ```shell
-$ docker-compose build nix-rust-sgx-sdk
+docker-compose build nix-rust-sgx-sdk
 ```
 
 Launch a container:
 
 ```shell
-$ docker-compose run --rm nix-rust-sgx-sdk
+docker-compose run --rm nix-rust-sgx-sdk
 ```
 
 Once in the container, start a `nix-shell` session:
